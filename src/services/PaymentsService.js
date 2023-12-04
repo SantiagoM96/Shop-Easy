@@ -3,7 +3,7 @@ const CartsService = require('../services/CartsService');
 const cartsService = new CartsService();
 const ProductsService = require('../services/ProductsService')
 const productsService = new ProductsService()
-
+let stockBackup;
 class PaymentsService {
     constructor() {
         this.stripe = new Stripe(process.env.STRIPE_KEY);
@@ -44,24 +44,35 @@ class PaymentsService {
     }
 
     async confirmPaymentIntent(paymentIntentId) {
-        let stockBackup;
-    
         try {
             const paymentIntent = await this.stripe.paymentIntents.confirm(paymentIntentId, {
                 payment_method: 'pm_card_visa',
                 return_url: `${process.env.BASE_URL}/home`,
             });
-    
+
             stockBackup = JSON.parse(paymentIntent.metadata.stockBackup);
-            
+
             return paymentIntent;
         } catch (error) {
-            
+
             if (error) {
                 await this.restoreStock(stockBackup);
             }
-    
+
             throw error;
+        }
+    }
+
+
+    async cancelPayment(paymentIntentId) {
+        try {
+            const paymentIntentCancel = await this.stripe.paymentIntents.cancel(paymentIntentId)
+            
+            stockBackup = JSON.parse(paymentIntentCancel.metadata.stockBackup)
+            await this.restoreStock(stockBackup)
+            return paymentIntentCancel
+        } catch (error) {
+            throw error
         }
     }
 

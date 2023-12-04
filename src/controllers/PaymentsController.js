@@ -32,7 +32,17 @@ class PaymentsController {
                 productosSinSuficienteStock,
             });
 
-            return res.sendSuccess(200, 'Pago confirmado');
+            return res.sendSuccess(200, 'Successful payment');
+        } catch (error) {
+            res.sendError(500, 'Internal Server error', error.message);
+        }
+    }
+
+    async cancelPayment(req, res) {
+        const { paymentIntentId } = req.body;
+        try {
+            await this.service.cancelPayment(paymentIntentId);
+            return res.sendSuccess(200, 'Successful payment cancellation')
         } catch (error) {
             res.sendError(500, 'Internal Server error', error.message);
         }

@@ -72,3 +72,35 @@ paymentFormElement.addEventListener('submit', async (e) => {
         });
     }
 });
+
+const cancelPaymentButton = document.getElementById('cancel-payment')
+cancelPaymentButton.addEventListener('click', async (e) => {
+    e.preventDefault()
+    const response = await fetch('/api/payments/cancel-payment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentIntentId: savedPaymentIntentId }),
+    });
+    const data = await response.json()
+
+    if (response.ok) {
+        localStorage.removeItem('paymentIntentId');
+        paymentSubmitButton.disabled = true;
+        Swal.fire({
+            title: 'Successful payment cancellation',
+            text: 'The payment was successfully cancel',
+            icon: 'success',
+            willClose: () => {
+                window.location.href = '/products';
+            }
+        });
+    } else {
+        Swal.fire({
+            title: 'Error canceling payment',
+            text: `${data.detail}`,
+            icon: 'error',
+        });
+    }
+})

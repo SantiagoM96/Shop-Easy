@@ -1,0 +1,12 @@
+<h2>USER PROFILE</h2>
+<section class="userProfileData">
+    <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+    {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+    <p><span class="bold">Age: </span>{{user.age}}</p>
+    {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+    <p><span class="bold">Role: </span>{{user.role}}</p>
+    <a href="/logout" class="logout">Logout</a>
+    <button class="deleteButton" data-userid="{{user.userId}}">Delete account</button>
+</section>
+
+<script src="/js/loginSystem/profile.js"></script>

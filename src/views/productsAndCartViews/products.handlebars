@@ -1,0 +1,68 @@
+<header class="userProfile">
+    <a href="/profile" class="bold">Profile</a>
+    <div>
+        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+        <p><span class="bold">Age: </span>{{user.age}}</p>
+        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+        <p><span class="bold">Role: </span>{{user.role}}</p>
+    </div>
+    {{#if user.admin}}
+    <a href="/realtimeproducts" class="bold">Edit inventory</a>
+    {{/if}}
+    <a href="/carts/{{user.cart}}" class="bold">View Cart</a>
+    <a href="/logout" class="logout">Logout</a>
+</header>
+<section class="productsContainer">
+    <h1>List of Products</h1>
+    {{#if noProducts}}
+    <p>No hay productos disponibles</p>
+    {{else}}
+    <table id="productos" class="table">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Options</th>
+        </tr>
+
+        {{#each products}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.stock}}</td>
+            {{#if this.stock}}
+            <td>Available</td>
+            {{else}}
+            <td>Not Available</td>
+            {{/if}}
+            <td>
+                <div class="productOptions">
+                    <a href="products/{{this._id}}"><i class="fas fa-info-circle"></i></a>
+                    {{#if this.stock}}
+                    <button class="addToCartButton" data-user-id="{{../user.userId}}" data-cart-id="{{../user.cart}}" data-product-id="{{this._id}}">Add
+                        to
+                        Cart</button>
+                    {{/if}}
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+    {{/if}}
+    <article class="pagination">
+        <p>Page {{productsData.page}} de {{productsData.totalPages}}</p>
+        <div class="linksContainer">
+            {{#if productsData.hasPrevPage}}
+            <a href="{{generatePaginationLink productsData.prevPage}}" class="bold">Prev Page</a>
+            {{/if}}
+            {{#if productsData.hasNextPage}}
+            <a href="{{generatePaginationLink productsData.nextPage}}" class="bold">Next Page</a>
+            {{/if}}
+        </div>
+    </article>
+</section>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/productsAndCart/products.js"></script>

@@ -1,0 +1,351 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Products
+      parameters:
+        - name: page
+          in: query
+          description: Número de página a mostrar.
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Límite de resultados por página.
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: Orden de clasificación (asc o desc).
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Categoría de productos.
+          required: false
+          schema:
+            type: string
+        - name: availability
+          in: query
+          description: Disponibilidad de productos (available, notavailable).
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Los productos fueron obtenidos satisfactoriamente de la base de datos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    description: Resultado de la petición
+                    properties:
+                      products:
+                        type: array
+                        items:
+                          $ref: "#components/schemas/Product"
+                  page:
+                    type: number
+                    description: Página actual
+                    example: 2
+                  totalPages:
+                    type: number
+                    description: Cantidad de páginas
+                    example: 10
+                  prevPage:
+                    type: number
+                    description: Este campo puede ser un número o nulo. Refiere a si hay una página previa.
+                    example: 1
+                  nextPage:
+                    type: number
+                    description: Este campo puede ser un número o nulo. Refiere a si hay una página siguiente.
+                    example: 3
+                  hasPrevPage:
+                    type: boolean
+                    description: Indica si hay una página anterior
+                  hasNextPage:
+                    type: boolean
+                    description: Indica si hay una página siguiente
+                  prevLink:
+                    type: string
+                    description: Enlace a la página anterior, si está disponible
+                  nextLink:
+                    type: string
+                    description: Enlace a la próxima página, si está disponible
+        "404":
+          description: No existen productos en nuestra base de datos
+        "500":
+          description: Error interno del servidor
+    post:
+      summary: Agregar un producto al inventario
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/addProduct"
+      responses:
+        "201":
+          description: Producto agregado con éxito
+        "409":
+          description: Error en la solicitud del cliente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorCustom"
+        "500":
+          description: Error interno del servidor
+  /api/products/{pid}:
+    get:
+      summary: Obtener los detalles de un producto por su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea solicitar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto encontrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    $ref: "#/components/schemas/Product"
+        "404":
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorCustom"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorCustom"
+    put:
+      summary: Actualizar los datos del producto mediante el id del mismo y los datos a modificar (excepto su id)
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct"
+      responses:
+        "200":
+          description: Producto actualizado con éxito
+        "404":
+          description: Producto no encontrado
+        "409":
+          description: Ya existe un producto con el código por el cual quieres actualizar el producto
+        "500":
+          description: Error interno del servidor
+    delete:
+      summary: Eliminar el producto mediante su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea eliminar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado con éxito
+        "404":
+          description: Producto no encontrado
+        "409":
+          description: No eres el dueño del producto para modificarlo o eliminarlo
+        "500":
+          description: Error interno del servidor
+
+components:
+  schemas:
+    ErrorCustom:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Nombre del error
+            code:
+              type: number
+              description: Código del error definido en un catálogo desarrollado por mi cuenta
+            cause:
+              type: string
+              description: Causa del error
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id autogenerado de mongo
+        title:
+          type: string
+          description: Titulo del producto
+          required: true
+        description:
+          type: string
+          description: Descripcion del producto
+          required: true
+        code:
+          type: string
+          description: Código del producto
+          unique: true
+          required: true
+        price:
+          type: number
+          description: Precio del producto
+          required: true
+        status:
+          type: boolean
+          description: Indica si el producto está disponible o no. Depende del stock
+          required: true
+        stock:
+          type: number
+          description: Stock del producto
+          required: true
+        category:
+          type: string
+          description: Categoría del producto
+          required: true
+        thumbnails:
+          type: array
+          description: Contiene las rutas a las imágenes del producto en formato String
+        owner:
+          type: string
+          description: Contiene el id de los usuarios con rol PREMIUM. En caso de no obtener un id o ser creado por un ADMIN el owner será ADMIN
+          default: ADMIN
+      example:
+        _id: objectId("638b8c323f3a4b3be6dc397e")
+        title: Teclado Inalámbrico
+        description: El teclado inalámbrico es una opción ideal para aquellos que prefieren trabajar sin tener que
+        code: PROD-200
+        price: 150
+        status: true
+        stock: 10
+        category: Accesorios
+        thumbnails: ["/uploads/productos/teclado_inalambrico.jpg"]
+        owner: ADMIN
+  requestBodies:
+    addProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto
+          required: true
+        description:
+          type: string
+          description: Descripcion del producto
+          required: true
+        code:
+          type: string
+          description: Código del producto
+          unique: true
+          required: true
+        price:
+          type: number
+          description: Precio del producto
+          required: true
+        status:
+          type: boolean
+          description: Indica si el producto está disponible o no. Depende del stock
+          required: true
+        stock:
+          type: number
+          description: Stock del producto
+          required: true
+        category:
+          type: string
+          description: Categoría del producto
+          required: true
+        thumbnails:
+          type: array
+          description: Contiene las rutas a las imágenes del producto en formato String
+        owner:
+          type: string
+          description: Contiene el id de los usuarios con rol PREMIUM. En caso de no obtener un id o ser creado por un ADMIN el owner será ADMIN
+          default: ADMIN
+      example:
+        title: Teclado Inalámbrico
+        description: El teclado inalámbrico es una opción ideal para aquellos que prefieren trabajar sin tener que
+        code: PROD-020
+        price: 150
+        status: true
+        stock: 10
+        category: Accesorios
+        thumbnails: ["/uploads/productos/teclado_inalambrico.jpg"]
+        owner: ADMIN
+    updateProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto
+          required: true
+        description:
+          type: string
+          description: Descripcion del producto
+          required: true
+        code:
+          type: string
+          description: Código del producto
+          unique: true
+          required: true
+        price:
+          type: number
+          description: Precio del producto
+          required: true
+        status:
+          type: boolean
+          description: Indica si el producto está disponible o no. Depende del stock
+          required: true
+        stock:
+          type: number
+          description: Stock del producto
+          required: true
+        category:
+          type: string
+          description: Categoría del producto
+          required: true
+        thumbnails:
+          type: array
+          description: Contiene las rutas a las imágenes del producto en formato String
+      example:
+        title: Nombre modificado
+        description: Cambio de descripción
+        code: PROD-020
+        price: 150
+        status: true
+        stock: 10
+        category: Accesorios
+        thumbnails: ["/uploads/productos/teclado_inalambrico.jpg"]

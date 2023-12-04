@@ -1,0 +1,35 @@
+{{#if noUsers}}
+<h1>No users in the database</h1>
+{{else}}
+<h1>MANAGE USERS</h1>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th colspan="3">Options</th>
+    </tr>
+    {{#each users}}
+    <tr id="{{this.id}}">
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td><input type="text" name="title" value="{{this.role}}" contenteditable="true" />
+        </td>
+        <td>
+            <button class="editButton" onclick="updateUserRole('{{this.id}}')">Edit</button>
+        </td>
+        <td>
+            <button class="deleteButton" onclick="deleteUser('{{this.id}}')">Delete</button>
+        </td>
+        <td>
+            <input type="file" id="documents-{{this.id}}" name="documents" multiple>
+            <br>
+            <button class="button uploadButton" onclick="uploadDocuments('{{this.id}}')">Upload Documents</button>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+<button class="deleteButton" onclick="deleteInactiveUsers()">Delete Inactive Users</button>
+{{/if}}
+
+<script src="/js/users.js"></script>

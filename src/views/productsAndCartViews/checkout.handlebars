@@ -1,0 +1,25 @@
+<header class="userProfile">
+    <a href="/profile" class="bold">Profile</a>
+    <div>
+        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+        <p><span class="bold">Age: </span>{{user.age}}</p>
+        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+        <p><span class="bold">Role: </span>{{user.role}}</p>
+    </div>
+    <a href="/logout" class="logout">Logout</a>
+
+</header>
+
+
+<section class="bankData">
+    <h1>Banking Data</h1>
+
+    <form class="payment-form">
+        <div id="card-element"></div>
+        <button type="submit" class="button buy" id="submit-payment" data-cart-id="{{user.cart}}">Pay</button>
+    </form>
+</section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/productsAndCart/checkout.js"></script>

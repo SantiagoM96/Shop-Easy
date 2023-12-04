@@ -1,0 +1,39 @@
+<header class="userProfile">
+    <a href="/profile" class="bold">Profile</a>
+    <div>
+        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+        <p><span class="bold">Age: </span>{{user.age}}</p>
+        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+        <p><span class="bold">Role: </span>{{user.role}}</p>
+    </div>
+    {{#if user.admin}}
+    <a href="/realtimeproducts" class="bold">Edit inventory</a>
+    {{/if}}
+    <a href="/carts/{{user.cart}}" class="bold">View Cart</a>
+    <a href="/logout" class="logout">Logout</a>
+</header>
+<section class="productDetailContainer">
+    <h1>Product Detail</h1>
+    <article>
+        <h3>{{product.title}}</h3>
+        <p><span class="bold">Id: </span>{{product._id}}</p>
+        <p><span class="bold">Description: </span>{{product.description}}</p>
+        <p><span class="bold">Code: </span>{{product.code}}</p>
+        <p><span class="bold">Price: </span>${{product.price}}</p>
+        <p><span class="bold">Stock: </span>{{product.stock}}</p>
+        <p><span class="bold">Category: </span>{{product.category}}</p>
+        <p><span class="bold">Status: </span>
+            {{#if product.stock}}
+            Available </p>
+        <button class="addToCartButton" data-cart-id="{{user.cart}}" data-product-id="{{product._id}}">
+            Add to Cart</button>
+        {{else}}
+        Not Available
+        </p>
+        {{/if}}
+    </article>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/productsAndCart/productDetails.js"></script>

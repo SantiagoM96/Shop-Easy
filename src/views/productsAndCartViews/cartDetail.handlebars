@@ -1,0 +1,54 @@
+<header class="userProfile">
+    <a href="/profile" class="bold">Profile</a>
+    <div>
+        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+        <p><span class="bold">Age: </span>{{user.age}}</p>
+        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+        <p><span class="bold">Role: </span>{{user.role}}</p>
+    </div>
+    <a href="/logout" class="logout">Logout</a>
+
+</header>
+<section class="productsContainer">
+    {{#if noProducts}}
+    <h1>Cart Empty</h1>
+    {{else}}
+    <h1>CART DETAIL</h1>
+    <table id="productos" class="table">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+
+        {{#each productsInCart}}
+        <tr>
+            <td>{{this.product._id}}</td>
+            <td>{{this.product.title}}</td>
+            <td>{{this.product.description}}</td>
+            <td>{{this.product.code}}</td>
+            <td>{{this.product.price}}</td>
+            <td>{{this.product.category}}</td>
+            <td>{{this.quantity}}</td>
+        </tr>
+        {{/each}}
+    </table>
+    <div class="totals">
+        <p><span class="bold">Total Quantity: </span>{{totalQuantity}}u</p>
+        <p><span class="bold">Total Price: </span>${{totalPrice}}</p>
+    </div>
+
+    <div class="buttonsCart">
+        <button id="deleteCartButton" data-cart-id="{{user.cart}}" class="button delete">DELETE</button>
+        <button class="button checkout" id="checkoutButton" data-cart-id="{{user.cart}}">CHECKOUT</button>
+    </div>
+    {{/if}}
+</section>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/productsAndCart/cart.js"></script>

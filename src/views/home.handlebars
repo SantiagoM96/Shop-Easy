@@ -1,0 +1,33 @@
+<header class="userProfile">
+    {{#unless admin}}
+    <a href="/profile" class="bold">Profile</a>
+    {{/unless}}
+    <div>
+        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
+        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
+        <p><span class="bold">Age: </span>{{user.age}}</p>
+        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
+        <p><span class="bold">Role: </span>{{user.role}}</p>
+    </div>
+    <a href="/logout" class="logout">Logout</a>
+</header>
+
+<section class="homeSection">
+    <h1>SHOP EASY - CODERHOUSE</h1>
+    <img src="/img/grow-shop.png" alt="Descripción de la imagen">
+    <div>
+        {{#if roles.adminRole}}
+        <a href="/realtimeproducts" class="bold">🔗 Inventory</a>
+        <a href="/users" class="bold">🔗 Users</a>
+        {{/if}}
+        {{#if roles.premiumRole}}
+        <a href="/realtimeproducts" class="bold">🔗 Inventory</a>
+        <a href="/chat" class="bold">🔗 Chat</a>
+        <a href="/products" class="bold">🔗 View Products</a>
+        {{/if}}
+        {{#if roles.userRole}}
+        <a href="/chat" class="bold">🔗 Chat</a>
+        <a href="/products" class="bold">🔗 View Products</a>
+        {{/if}}
+    </div>
+</section>

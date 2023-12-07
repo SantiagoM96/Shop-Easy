@@ -9,13 +9,12 @@
 }
 
 a {
-    color: #3a3939;
-    padding: 0.5rem;
+    color: #343434;
 }
 
 h1,
 h2 {
-    color: rgb(52, 52, 52);
+    color: #343434;
     text-transform: uppercase;
     font-size: 2em;
     margin-top: 1rem;
@@ -34,22 +33,17 @@ h2 {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 1.25rem;
 
 }
 
 .form {
     margin: 2rem auto;
-    max-width: 25rem;
+    width: 25rem;
     border: 1px solid #ccc;
     padding: 2rem;
     border-radius: 0.1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-legend {
-    font-size: 2em;
-    text-transform: uppercase;
 }
 
 .form label {
@@ -81,14 +75,22 @@ legend {
 }
 
 .form input[type="submit"] {
-    margin-top: 10px;
-    background-color: #4CAF50;
+    margin-top: 0.625rem;
+    background-color: #56b486;
     color: white;
     padding: 0.625rem 1.25rem;
     border: none;
-    border-radius: 0.1rem;
+    border-radius: 0.3125rem;
     cursor: pointer;
+    transition: background-color 0.2s;
     width: 100%;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.form input[type="submit"]:hover {
+    background-color: #4d9e71;
 }
 
 .productsContainer {
@@ -199,22 +201,6 @@ tr:nth-child(even) {
     font-size: 1.5em;
 }
 
-.productOptions form input, .productOptions form button {
-    padding: 0.5rem;
-}
-
-.addToCartButton {
-    background-color: #4CAF50;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 900;
-    padding: 0.5rem;
-}
-
-.bold {
-    font-weight: 900;
-}
-
 .productDetailContainer {
     width: 100%;
     display: flex;
@@ -253,42 +239,36 @@ tr:nth-child(even) {
     padding: 0.5rem;
 }
 
+/* NAVBAR */
 
-.productDetailFooter form button {
-    padding: 1rem;
-    background-color: #4CAF50;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 900;
-}
-
-.loginSystem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.userProfile {
+.navBar {
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: 1rem;
     height: 8vh;
-    background-color: #ddd;
+    background-color: #56b486;
+    color: #ffffff;
 }
 
-.userProfile div {
+.navBar div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
 }
 
-.logout {
-    color: #e24747;
+.navBar a {
     font-weight: 900;
+    text-transform: uppercase;
 }
+
+.navBar a .navImg {
+    width: 24px;
+    height: auto;
+}
+
+/* VISTA DE PROFILE */
 
 .userProfileData {
     display: flex;
@@ -311,78 +291,16 @@ tr:nth-child(even) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.socialButton {
-    border: none;
-    background-color: #a9abae;
-    margin: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.3125rem;
-    font-size: 1em;
-    font-weight: 900;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.socialButton:hover {
-    background-color: #4CAF50;
-    transform: scale(1.05);
-}
-
-.socialImg {
-    width: 1.5rem;
-    height: auto;
-    margin-right: 0.625rem;
-    vertical-align: middle;
-}
-
-.editButton, .deleteButton, .button {
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 0.625rem 1rem;
-    border-radius: 0.3125rem;
-    font-weight: 900;
-    transition: background-color 0.3s, transform 0.2s;
-    text-transform: uppercase;
-    margin: 0.5rem;
-    width: 8rem;
-    font-size: 0.625em;
-}
-
-.editButton {
-    background-color: #2196F3;
-}
-
-.deleteButton, .delete, .cancel {
-    background-color: #e24747;
-}
-
-.deleteButton:hover, .delete:hover {
-    background-color: #c63030;
-    transform: scale(1.05);
-}
-
-.checkout {
-    background-color: #4CAF50;
-}
-
-.checkout a {
-    color: #fff;
-}
-
-.checkout:hover {
-    background-color: #538a55;
-    transform: scale(1.05);
-}
-
 .homeSection {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 92vh;
+}
+
+.homeSection a {
+    color: #343434;
 }
 
 .homeSection h1 {
@@ -428,19 +346,15 @@ tr:nth-child(even) {
     box-sizing: border-box;
 }
 
+.paymentButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card-errors {
     color: #e74c3c;
     margin-bottom: 1em;
-}
-
-.buy {
-    display: none;
-    margin: auto;
-    background-color: #3c8fc7;
-}
-
-.buy:hover {
-    background-color: #2980b9;
 }
 
 #card-element {
@@ -451,6 +365,121 @@ tr:nth-child(even) {
     border-radius: 0.5em;
 }
 
-.uploadButton {
-    background-color: #538a55;
+
+/* Buttons */
+
+.button {
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0.625rem 1rem;
+    border-radius: 0.3125rem;
+    font-weight: 900;
+    transition: background-color 0.3s, transform 0.2s;
+    text-transform: uppercase;
+    margin: 0.75rem;
+    width: 9rem;
+    font-size: 0.688em;
+}
+
+i {
+    color: #2f2c2c;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.button:hover, i:hover {
+    transform: scale(1.05);
+}
+
+.greenButton {
+    background-color: #56b486;
+}
+
+.greenButton:hover {
+    background-color: #4d9e71;
+}
+
+.blueButton {
+    background-color: #2196F3;
+}
+
+.blueButton:hover {
+    background-color: #1E88E5;
+}
+
+.redButton {
+    background-color: #e24747;
+}
+
+.redButton:hover {
+    background-color: #c63030;
+}
+
+.buy {
+    display: none;
+    background-color: #3c8fc7;
+}
+
+.buy:hover {
+    background-color: #2980b9;
+}
+
+
+/* VISTA DE LOGIN */
+
+.loginSystem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 0.875em;
+}
+
+.loginSystem a {
+    color: #343434;
+    font-weight: 900;
+}
+
+.loginSystem .register {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 400px;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+}
+
+.register .button {
+    width: 100%;
+    margin: 0;
+    color: #ffffff;
+    text-align: center;
+}
+
+.register :first-child {
+    margin-bottom: 0.5rem;
+}
+
+.register .button:hover {
+    transform: none;
+}
+
+/* Social Buttons */
+
+.socialButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b5b5b5;
+    color: #343434;
+    font-size: 0.8em;
+}
+
+.socialImg {
+    width: 1.5rem;
+    height: auto;
+    margin-right: 0.625rem;
+    vertical-align: middle;
 }

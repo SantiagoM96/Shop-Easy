@@ -16,20 +16,20 @@
         <td><input type="text" name="title" value="{{this.role}}" contenteditable="true" />
         </td>
         <td>
-            <button class="editButton" onclick="updateUserRole('{{this.id}}')">Edit</button>
+            <button class="button greenButton" onclick="updateUserRole('{{this.id}}')">Edit</button>
         </td>
         <td>
-            <button class="deleteButton" onclick="deleteUser('{{this.id}}')">Delete</button>
+            <button class="button redButton" onclick="deleteUser('{{this.id}}')">Delete</button>
         </td>
         <td>
             <input type="file" id="documents-{{this.id}}" name="documents" multiple>
             <br>
-            <button class="button uploadButton" onclick="uploadDocuments('{{this.id}}')">Upload Documents</button>
+            <button class="button greenButton" onclick="uploadDocuments('{{this.id}}')">Upload Documents</button>
         </td>
     </tr>
     {{/each}}
 </table>
-<button class="deleteButton" onclick="deleteInactiveUsers()">Delete Inactive Users</button>
+<button class="button redButton" onclick="deleteInactiveUsers()">Delete Inactive Users</button>
 {{/if}}
 
 <script src="/js/users.js"></script>

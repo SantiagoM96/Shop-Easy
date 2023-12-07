@@ -1,15 +1,14 @@
-<header class="userProfile">
-    <a href="/profile" class="bold">Profile</a>
+<header class="navBar">
+    <a href="/profile"><img src="/img/usuario.png" alt="Imagen de perfil" class="navImg"></a>
     <div>
-        <p>Welcome <span class="bold">{{user.first_name}}</span>!</p>
-        {{#if user.last_name}} <p><span class="bold">Lastname: </span>{{user.last_name}}</p>{{/if}}
-        <p><span class="bold">Age: </span>{{user.age}}</p>
+        <p>Welcome <span class="bold">{{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</span>!</p>
         {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
         <p><span class="bold">Role: </span>{{user.role}}</p>
     </div>
-    <a href="/logout" class="logout">Logout</a>
-
+    <a href="/carts/{{user.cart}}"><img src="/img/carrito.png" alt="Icono de carrito" class="navImg"></a>
+    <a href="/logout"><img src="/img/logout.png" alt="Icono para cierre de sesión" class="navImg"></a>
 </header>
+
 
 
 <section class="bankData">
@@ -17,9 +16,11 @@
 
     <form class="payment-form">
         <div id="card-element"></div>
-        <button type="submit" class="button buy" id="submit-payment" data-cart-id="{{user.cart}}">Pay</button>
-        <button class="button cancel" id="cancel-payment">Cancel
-            Payment</button>
+        <div class="paymentButtons">
+            <button class="button redButton" id="cancel-payment">Cancel
+                Payment</button>
+            <button type="submit" class="button buy" id="submit-payment" data-cart-id="{{user.cart}}">Pay</button>
+        </div>
     </form>
 
 </section>

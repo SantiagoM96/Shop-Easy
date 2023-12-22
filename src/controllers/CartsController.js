@@ -46,6 +46,7 @@ class CartsController {
             await this.service.addProductToCart(cid, pid, userId)
             return res.sendSuccess(200, 'Successfully added')
         } catch (error) {
+            console.log(error);
             if (error.message === 'Product not found in inventory' || error.message === 'Cart not found') {
                 return res.sendError(404, error.message);
             }

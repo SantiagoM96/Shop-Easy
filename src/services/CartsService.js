@@ -48,6 +48,7 @@ class CartsService {
 
             return this.repository.addProductToCart(cid, pid)
         } catch (error) {
+            console.log(error);
             throw error
         }
     }

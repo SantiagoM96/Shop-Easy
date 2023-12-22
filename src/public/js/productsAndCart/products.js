@@ -15,6 +15,7 @@ addToCartButtons.forEach((button) => {
             },
         });
         const data = await response.json()
+    
         if (response.ok) {
             Swal.fire({
                 title: 'Success',

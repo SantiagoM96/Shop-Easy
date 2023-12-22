@@ -39,7 +39,7 @@ h2 {
 
 .form {
     margin: 2rem auto;
-    width: 25rem;
+    width: 22rem;
     border: 1px solid #ccc;
     padding: 2rem;
     border-radius: 0.1rem;
@@ -446,7 +446,7 @@ i {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 400px;
+    max-width: 20rem;
     padding: 0 2rem;
     margin-bottom: 1rem;
 }

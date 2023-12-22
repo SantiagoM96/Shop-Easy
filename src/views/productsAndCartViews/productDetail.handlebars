@@ -22,8 +22,10 @@
         <p><span class="bold">Status: </span>
             {{#if product.stock}}
             Available </p>
-        <button class="addToCartButton" data-cart-id="{{user.cart}}" data-product-id="{{product._id}}">
-            Add to Cart</button>
+        <button class="button greenButton addToCartButton" data-user-id="{{user.userId}}" data-cart-id="{{user.cart}}"
+            data-product-id="{{product._id}}">Add
+            to
+            Cart</button>
         {{else}}
         Not Available
         </p>

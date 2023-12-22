@@ -48,6 +48,7 @@ class CartManagerMongo {
             await cart.save();
 
         } catch (error) {
+            console.log(error);
             throw error
         }
     }

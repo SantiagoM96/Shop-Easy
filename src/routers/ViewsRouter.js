@@ -15,7 +15,7 @@ class ViewsRouter extends BaseRouter {
         const user = req.user;
         let noAdmin = false
         const filters = {};
-        const { page = 1, limit = 10, sort, category, availability } = req.query;
+        const { page = 1, limit = 6, sort, category, availability } = req.query;
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
         const availabilityOption = availability === 'available' ? true : availability === 'notavailable' ? false : undefined;
         const query = {

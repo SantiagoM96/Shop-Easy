@@ -39,10 +39,10 @@
         <p>Page {{productsData.page}} de {{productsData.totalPages}}</p>
         <div class="linksContainer">
             {{#if productsData.hasPrevPage}}
-            <a href="{{generatePaginationLink productsData.prevPage}}" class="bold">Prev Page</a>
+            <a href="{{generatePaginationLink productsData.prevPage}}"><i class="fas fa-chevron-circle-left"></i></a>
             {{/if}}
             {{#if productsData.hasNextPage}}
-            <a href="{{generatePaginationLink productsData.nextPage}}" class="bold">Next Page</a>
+            <a href="{{generatePaginationLink productsData.nextPage}}"><i class="fas fa-chevron-circle-right"></i></a>
             {{/if}}
         </div>
     </article>

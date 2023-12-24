@@ -1,13 +1,18 @@
-<h2>Login</h2>
-
 <section class="loginSystem">
+    <h2>Login</h2>
+    <a href="api/sessions/github" class="button socialButton">
+        <img src="./img/github-mark.png" alt="Logo de GitHub" class="socialImg">
+        <div>
+            <p>WITH GITHUB</p>
+        </div>
+    </a>
+    <p class="orText">or</p>
     <form action="api/sessions/" class="form">
-
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
 
         <input type="submit" id="loginButton" value="Sign In">
     </form>
@@ -15,12 +20,6 @@
         <a href="/passwordrecovery">Forgot your password?</a>
         <a href="/register" class="button greenButton">Register</a>
     </div>
-    <a href="api/sessions/github" class="button socialButton">
-        <img src="./img/github-mark.png" alt="Logo de GitHub" class="socialImg">
-        <div>
-            <p>GITHUB</p>
-        </div>
-    </a>
 </section>
 
 <script src="/js/loginSystem/login.js"></script>

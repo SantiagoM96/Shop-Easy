@@ -1,25 +1,23 @@
 <header class="navBar">
     <a href="/profile"><img src="/img/usuario.png" alt="Imagen de perfil" class="navImg"></a>
     <div>
-        <p>Welcome <span class="bold">{{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</span>!</p>
-        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
-        <p><span class="bold">Role: </span>{{user.role}}</p>
+        <p>Welcome {{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</p>
+        {{#if user.email}} <p>Email: {{user.email}}</p> {{/if}}
+        <p>Role: {{user.role}}</p>
     </div>
     <a href="/carts/{{user.cart}}"><img src="/img/carrito.png" alt="Icono de carrito" class="navImg"></a>
     <a href="/logout"><img src="/img/logout.png" alt="Icono para cierre de sesión" class="navImg"></a>
 </header>
 
-<section class="productDetailContainer">
-    <h1>Product Detail</h1>
-    <article>
-        <h3>{{product.title}}</h3>
-        <p><span class="bold">Id: </span>{{product._id}}</p>
-        <p><span class="bold">Description: </span>{{product.description}}</p>
-        <p><span class="bold">Code: </span>{{product.code}}</p>
-        <p><span class="bold">Price: </span>${{product.price}}</p>
-        <p><span class="bold">Stock: </span>{{product.stock}}</p>
-        <p><span class="bold">Category: </span>{{product.category}}</p>
-        <p><span class="bold">Status: </span>
+<section class="productsContainer">
+    <article class="productCardDetail">
+        <h4>{{product.title}}</h4>
+        <p><strong>Description: </strong>{{product.description}}</p>
+        <p><strong>Code: </strong>{{product.code}}</p>
+        <p><strong>Price: </strong>${{product.price}}</p>
+        <p><strong>Stock: </strong>{{product.stock}}</p>
+        <p><strong>Category: </strong>{{product.category}}</p>
+        <p><strong>Status: </strong>
             {{#if product.stock}}
             Available </p>
         <button class="button greenButton addToCartButton" data-user-id="{{user.userId}}" data-cart-id="{{user.cart}}"

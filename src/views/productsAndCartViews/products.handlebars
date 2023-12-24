@@ -1,9 +1,9 @@
 <header class="navBar">
     <a href="/profile"><img src="/img/usuario.png" alt="Imagen de perfil" class="navImg"></a>
     <div>
-        <p>Welcome <span class="bold">{{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</span>!</p>
-        {{#if user.email}} <p><span class="bold">Email: </span>{{user.email}}</p> {{/if}}
-        <p><span class="bold">Role: </span>{{user.role}}</p>
+        <p>Welcome {{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</p>
+        {{#if user.email}} <p>Email: {{user.email}}</p> {{/if}}
+        <p>Role: {{user.role}}</p>
     </div>
     <a href="/carts/{{user.cart}}"><img src="/img/carrito.png" alt="Icono de carrito" class="navImg"></a>
     <a href="/logout"><img src="/img/logout.png" alt="Icono para cierre de sesión" class="navImg"></a>
@@ -11,43 +11,30 @@
 
 <section class="productsContainer">
     <h1>List of Products</h1>
-    {{#if noProducts}}
-    <p>No hay productos disponibles</p>
-    {{else}}
-    <table id="productos" class="table">
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Stock</th>
-            <th>Status</th>
-            <th>Options</th>
-        </tr>
-
+    <div class="products">
+        {{#if noProducts}}
+        <p>No hay productos disponibles</p>
+        {{else}}
         {{#each products}}
-        <tr>
-            <td>{{this._id}}</td>
-            <td>{{this.title}}</td>
-            <td>{{this.stock}}</td>
-            {{#if this.stock}}
-            <td>Available</td>
-            {{else}}
-            <td>Not Available</td>
-            {{/if}}
-            <td>
-                <div class="productOptions">
-                    <a href="products/{{this._id}}"><i class="fas fa-info-circle"></i></a>
-                    {{#if this.stock}}
-                    <button class="button greenButton addToCartButton" data-user-id="{{../user.userId}}" data-cart-id="{{../user.cart}}"
-                        data-product-id="{{this._id}}">Add
-                        to
-                        Cart</button>
-                    {{/if}}
-                </div>
-            </td>
-        </tr>
+        <div class="productCard">
+            <div class="productInfo">
+                <h4>{{this.title}}</h4>
+                <p><strong>ID:</strong> {{this._id}}</p>
+                <p><strong>Stock:</strong> {{this.stock}}</p>
+                <p><strong>Status:</strong> {{#if this.stock}}Available{{else}}Not Available{{/if}}</p>
+            </div>
+            <div class="productOptions">
+                <a href="products/{{this._id}}"><i class="fas fa-info-circle"></i> View Details</a>
+                {{#if this.stock}}
+                <button class="button greenButton addToCartButton" data-user-id="{{../user.userId}}"
+                    data-cart-id="{{../user.cart}}" data-product-id="{{this._id}}">Add to Cart</button>
+                {{/if}}
+            </div>
+        </div>
+
         {{/each}}
-    </table>
-    {{/if}}
+        {{/if}}
+    </div>
     <article class="pagination">
         <p>Page {{productsData.page}} de {{productsData.totalPages}}</p>
         <div class="linksContainer">

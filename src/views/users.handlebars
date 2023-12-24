@@ -1,35 +1,51 @@
-{{#if noUsers}}
-<h1>No users in the database</h1>
-{{else}}
-<h1>MANAGE USERS</h1>
-<table class="table">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th colspan="3">Options</th>
-    </tr>
-    {{#each users}}
-    <tr id="{{this.id}}">
-        <td>{{this.name}}</td>
-        <td>{{this.email}}</td>
-        <td><input type="text" name="title" value="{{this.role}}" contenteditable="true" />
-        </td>
-        <td>
-            <button class="button greenButton" onclick="updateUserRole('{{this.id}}')">Edit</button>
-        </td>
-        <td>
-            <button class="button redButton" onclick="deleteUser('{{this.id}}')">Delete</button>
-        </td>
-        <td>
-            <input type="file" id="documents-{{this.id}}" name="documents" multiple>
-            <br>
-            <button class="button greenButton" onclick="uploadDocuments('{{this.id}}')">Upload Documents</button>
-        </td>
-    </tr>
-    {{/each}}
-</table>
-<button class="button redButton" onclick="deleteInactiveUsers()">Delete Inactive Users</button>
-{{/if}}
+<header class="navBar">
+    <a href="/profile"><img src="/img/usuario.png" alt="Imagen de perfil" class="navImg"></a>
+    <div>
+        <p>Welcome {{user.first_name}} {{#if user.last_name}}{{user.last_name}}{{/if}}</p>
+        {{#if user.email}} <p>Email: {{user.email}}</p> {{/if}}
+        <p>Role: {{user.role}}</p>
+    </div>
+    <a href="/logout"><img src="/img/logout.png" alt="Icono para cierre de sesión" class="navImg"></a>
+</header>
+
+<section class="users">
+    {{#if noUsers}}
+    <h1>No users in the database</h1>
+    {{else}}
+    <h1>MANAGE USERS</h1>
+    <article>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th colspan="3">Options</th>
+            </tr>
+            {{#each users}}
+            <tr id="{{this.id}}">
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td><input type="text" name="title" value="{{this.role}}" contenteditable="true" />
+                </td>
+                <td>
+                    <button class="button greenButton" onclick="updateUserRole('{{this.id}}')">Edit</button>
+                </td>
+                <td>
+                    <button class="button redButton" onclick="deleteUser('{{this.id}}')">Delete</button>
+                </td>
+                <td>
+                    <input type="file" id="documents-{{this.id}}" name="documents" multiple>
+                    <br>
+                    <button class="button greenButton" onclick="uploadDocuments('{{this.id}}')">Upload
+                        Documents</button>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </article>
+    <button class="button redButton" onclick="deleteInactiveUsers()">Delete Inactive Users</button>
+    {{/if}}
+</section>
+
 
 <script src="/js/users.js"></script>

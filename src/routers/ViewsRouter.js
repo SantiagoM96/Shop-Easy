@@ -13,6 +13,7 @@ class ViewsRouter extends BaseRouter {
 
     handleProductsRoutes = async (req, res, viewName) => {
         const user = req.user;
+        let noAdmin = false
         const filters = {};
         const { page = 1, limit = 10, sort, category, availability } = req.query;
         const sortOption = sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {};
@@ -31,6 +32,10 @@ class ViewsRouter extends BaseRouter {
             filters.status = availabilityOption;
         }
 
+        if (user.role !== 'ADMIN') {
+            noAdmin = true
+        }
+
         try {
             const productsData = await productsService.getProducts(filters, query);
             const products = productsData.products.map(p => p.toObject());
@@ -39,6 +44,7 @@ class ViewsRouter extends BaseRouter {
                 products: products,
                 productsData,
                 user,
+                noAdmin,
                 generatePaginationLink: (page) => {
                     const newQuery = { ...req.query, ...filters, page: page };
                     return `/${viewName.split('/')[1]}?` + new URLSearchParams(newQuery).toString();
@@ -265,9 +271,10 @@ class ViewsRouter extends BaseRouter {
         })
 
         this.get('/logout', passportCall('jwt'), async (req, res) => {
+            const user = req.user
             try {
                 if (req.user.userId !== process.env.ADMIN_ID) {
-                    await usersService.updateUserLastConnection(req.user);
+                    await usersService.updateUserLastConnection(user);
                 }
                 res.clearCookie('authTokenCookie');
                 res.redirect('/')
@@ -286,11 +293,12 @@ class ViewsRouter extends BaseRouter {
         });
 
         this.get('/users', passportCall('jwt'), authorizationMiddleware('ADMIN'), async (req, res) => {
+            const user = req.user
             try {
                 const users = await usersService.getUsers()
                 let noUsers = false
                 if (!users) noUsers = true
-                res.renderView({ view: 'users', locals: { title: 'Users', users, noUsers } })
+                res.renderView({ view: 'users', locals: { title: 'Users', users, noUsers, user } })
             } catch (error) {
                 res.renderView({
                     view: 'error', locals: { title: 'Error', errorMessage: error.message },

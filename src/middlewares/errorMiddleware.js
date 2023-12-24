@@ -1,7 +1,6 @@
 const EErrors = require("../services/Errors/enums");
 
 const errorMiddleware = (error, req, res, next) => {
-    console.log(error);
     console.log('Error cause: ', error.cause)
     const contentType = req.headers['content-type']
     switch (error.code) {

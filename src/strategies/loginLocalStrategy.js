@@ -3,7 +3,6 @@ const UsersRepository = require('../repositories/UsersRepository')
 const usersRepository = new UsersRepository()
 const { isValidPassword } = require('../utils/passwordHash');
 const { generateToken } = require('../utils/jwt');
-const settings = require('../commands/command');
 
 const LocalStrategy = local.Strategy;
 

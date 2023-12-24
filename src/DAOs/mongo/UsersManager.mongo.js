@@ -20,11 +20,8 @@ class UserManager {
     async getUserById(uid) {
         try {
             const user = await this.model.findOne({ _id: uid });
-
             if (!user) throw new Error('User not found')
-
             return user
-
         } catch (error) {
             throw error;
         }
@@ -33,7 +30,6 @@ class UserManager {
     async getUserByFilter(filter) {
         try {
             const user = await this.model.findOne(filter);
-
             return user
         } catch (error) {
             throw error;
@@ -95,11 +91,11 @@ class UserManager {
     }
 
     async updateUserLastConnection(user) {
+        const userId = user.userId || user._id
         try {
-            const userToUpdate = await this.model.findOne({ _id: user.userId || user._id })
+            const userToUpdate = await this.model.findOne({ _id: userId })
             if (!userToUpdate) throw new Error('User not found');
-
-            await this.model.updateOne({ _id: user._id || user.userId }, { last_connection: new Date() })
+            await this.model.updateOne({ _id: userId }, { last_connection: new Date() })
         } catch (error) {
             throw error
         }
